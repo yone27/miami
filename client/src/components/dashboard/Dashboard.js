@@ -27,10 +27,11 @@ class Dashboard extends Component {
 
 	onSubmit = e => {
 		e.preventDefault();
-
 		const newPage = {
 			page: this.state.page
-		};
+        };
+        console.log(newPage);
+        
 
 		this.props.addPage(newPage, this.props.history);
 	};
@@ -97,7 +98,8 @@ Dashboard.propTypes = {
 };
 
 const mapStateToProps = state => ({
-	auth: state.auth
+    auth: state.auth,
+	errors: state.errors
 });
 
 export default connect(

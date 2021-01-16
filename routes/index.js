@@ -110,7 +110,9 @@ router.post("/login", (req, res) => {
 // @access Private
 router.post("/page", passport.authenticate('jwt', { session: false }), async (req, res) => {
     // Form validation
-    const isExist = await Page.findOne({ name: req.body.page })
+
+    const isExist = await Page.findOne({ page: req.body.page })
+
     if (!isExist) {
         // Crear url
         const url = 'http://' + req.hostname + '/' + req.body.page
@@ -125,16 +127,19 @@ router.post("/page", passport.authenticate('jwt', { session: false }), async (re
         await newPage.save()
         return res.json({ success: "Success" });
     } else {
-        return res.json({ duplicateName: "Duplicate page" });
+        return res.json({ error: "Duplicate page" });
     }
 });
-router.get('/secret', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    res.json("Secret Data")
-})
 
 // @access public
-router.post("/:page", (req, res) => {
-    console.log(req.body)
+router.get("/page/:page", async (req, res) => {
+    const page = await Page.findOne({ page: req.params.page })
+    
+    if (page) {
+        return res.json(page);
+    } else {
+        return res.json({ error: "Page not found" });
+    }
 });
 
 module.exports = router;

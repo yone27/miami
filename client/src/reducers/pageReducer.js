@@ -1,21 +1,14 @@
-import { SET_PAGES } from "../actions/types";
-
-const isEmpty = require("is-empty");
+import { SET_PAGE } from "../actions/types";
 
 const initialState = {
-	//	isAuthenticated: false,
-	pages: {},
-	loading: false
-};
+    page: {}
+}
 
 export default function (state = initialState, action) {
-	switch (action.type) {
-		case SET_PAGES:
-			return {
-				...state,
-				pages: action.payload
-			};
-		default:
-			return state;
-	}
+    switch (action.type) {
+        case SET_PAGE:
+            return action.payload;
+        default:
+            return state;
+    }
 }
