@@ -14,6 +14,7 @@ export const addPage = (pageData, history) => dispatch => {
                     type: GET_ERRORS,
                     payload: obj
                 })
+                history.push("/dashboard/page")
             }
         })
         .catch(err =>

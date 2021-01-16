@@ -133,7 +133,7 @@ router.post("/page", passport.authenticate('jwt', { session: false }), async (re
 
 // @access public
 router.get("/page/:page", async (req, res) => {
-    const page = await Page.findOne({ page: req.params.page })
+    const page = await Page.findOne({ page: slug(req.params.page) })
     
     if (page) {
         return res.json(page);
